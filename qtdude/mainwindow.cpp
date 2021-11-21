@@ -14,8 +14,6 @@
 #include <iostream>
 #include <sstream>
 
-#include <QtSerialPort/QSerialPort>
-#include <QtSerialPort/QSerialPortInfo>
 
 static QSerialPortInfo port;
 static class AvrDude *AVRDude;
@@ -25,7 +23,7 @@ static std::vector<std::string> *avrdudeData;
 static std::vector<std::string> *avrdudeDevices;
 static std::vector<std::string> *avrdudeProgramers;
 
-QList<QSerialPortInfo> com_ports = QSerialPortInfo::availablePorts();
+
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -36,6 +34,8 @@ MainWindow::MainWindow(QWidget *parent) :
     avrdudeData=new std::vector<std::string>;
     avrdudeDevices=new std::vector<std::string>;
     avrdudeProgramers=new std::vector<std::string>;
+    timer1 = new QTimer(this);
+    com_ports = QSerialPortInfo::availablePorts();
 
     vecControls=new std::vector<QObject>;
     // Fill here the vector with control objects which
@@ -62,6 +62,10 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionSave_Hexfile,SIGNAL(triggered()),this,SLOT(SaveFile()));
     connect(ui->actionOpen_Hexfile,SIGNAL(triggered()),this,SLOT(LoadHexFile()));
     connect(dialogUI->pushButton_2,SIGNAL(clicked()),this,SLOT(UpdateSettings()));
+    connect(timer1, SIGNAL(timeout()), this, SLOT(TimerUpdate())); // Timer Callback
+
+    timer1->setInterval(1000);
+    timer1->start();
 }
 
 MainWindow::~MainWindow()
@@ -70,6 +74,7 @@ MainWindow::~MainWindow()
     delete avrdudeData;
     delete avrdudeDevices;
     delete avrdudeProgramers;
+    delete timer1;
 
     delete ui;
     delete dialogUI;
@@ -281,3 +286,10 @@ void MainWindow::Quit() {
     SettingsWindow->close();
     this->close();
 }
+
+void MainWindow::TimerUpdate()
+{
+
+
+}
+

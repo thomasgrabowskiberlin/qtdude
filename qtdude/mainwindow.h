@@ -4,7 +4,10 @@
 #include "config.h"
 #include <ui_dialog.h>
 #include <QMainWindow>
+#include <QTimer>
 
+#include <QtSerialPort/QSerialPort>
+#include <QtSerialPort/QSerialPortInfo>
 
 namespace Ui {
 class MainWindow;
@@ -18,6 +21,8 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     std::vector<QObject> *vecControls;
+    QTimer *timer1;
+    QList<QSerialPortInfo> com_ports;
 
 private slots:
     void AvrDudeInfoButton();
@@ -29,7 +34,7 @@ private slots:
     void LoadHexFile();
     void ReadFlash();
     void UpdateSettings();
-
+    void TimerUpdate();
 
 private:
     Ui::MainWindow *ui;
