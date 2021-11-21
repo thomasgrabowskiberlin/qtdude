@@ -525,7 +525,6 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o mainwindow.cpp
 
 avrdudeinterface.o: avrdudeinterface.cpp avrdudeinterface.h \
-		unistd.h \
 		misc.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o avrdudeinterface.o avrdudeinterface.cpp
 
